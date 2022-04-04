@@ -9,7 +9,8 @@ For testing the algorithms we used LiDAR derived Digital Surface Models
 (DSM) and Digital Terrain Models (DTM) with 1 m spatial resolution of
 the Vancouver metropolitan area (Natural Resources Canada 2019). For
 downloading and processing the data, follow the workflow provided in
-this folder ([`00_elevation_data.R`](00_elevation_data.R)).
+this folder
+([`00_elevation_data.R`](https://github.com/STBrinkmann/protoVS/blob/main/docs/workflows/00_Data/00_elevation_data.R)).
 
 ## Land Use and Land Cover
 
