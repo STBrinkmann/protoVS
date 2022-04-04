@@ -208,7 +208,7 @@ p %>%
   geom_line(size = 1.2) +
   theme_Publication() +
   scale_y_continuous(labels = scales::percent) +
-  labs(y = "Improvement")
+  labs(x = "Distance [m]", y = "Improvement")
 ```
 
 At \~250 our novel algorithm has similar (but not lower), otherwise better performance compared to the old algortihm. Overall, mean single-core computation time per viewshed was improved by `r p_mean_overall`% (±`r p_sd_overall`%) using our novel algorithm. Smaller improvements of `r p_mean_low`% (±`r p_sd_low`%) were measured for small viewsheds (r \< 300 m), using a larger radius (r \>= 300 m) led to an improvement of `r p_mean_high`% (±`r p_sd_high`%).
