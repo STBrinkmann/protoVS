@@ -5,8 +5,8 @@ Sebastian Brinkmann
 
 ## Libraries
 
-For this analysis we used our AGILE R package, which has been built for
-this paper specifically. The functions used in this analysis are the
+For this analysis we used our protoVS R package, which has been built
+for this paper specifically. The functions used in this analysis are the
 same as in the GVI R package, that is being used for calculating VGVI.
 
 ``` r
