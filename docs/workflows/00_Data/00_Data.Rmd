@@ -1,0 +1,28 @@
+---
+title: "Data Download"
+author: "Sebastian Brinkmann"
+date: "(31.3.2022)"
+knit: (
+  function(inputFile, encoding) {
+    rmarkdown::render(inputFile, encoding = encoding,
+    output_file = "README.md") })
+output: github_document
+bibliography: ../../references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = FALSE, eval = FALSE)
+knitr::opts_knit$set(root.dir = "../../../")
+```
+
+## Elevation data
+
+For testing the algorithms we used LiDAR derived Digital Surface Models (DSM) and Digital Terrain Models (DTM) with 1 m spatial resolution of the Vancouver metropolitan area [@NaturalResourcesCanada.2019]. For downloading and processing the data, follow the workflow provided in this folder ([`00_elevation_data.R`](00_elevation_data.R)).
+
+## Land Use and Land Cover
+
+Publicly available LULC data has been acquired by @MetroVancouver.31.11.2019 at 2m resolution and reclassified to a binary greenness raster (0=no-green; 1=green). On their website (<http://www.metrovancouver.org/data>) you can downloaded the data by clicking on "FGDB", shown in the screenshot below.
+
+[![Land Cover Classification 2014 - 2m LiDAR (Raster) [@MetroVancouver.31.11.2019].](metroVancouver.PNG)](http://www.metrovancouver.org/data)
+
+## Bibliography
