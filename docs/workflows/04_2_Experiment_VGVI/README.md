@@ -1,7 +1,7 @@
 Experiment - Viewshed
 ================
 Sebastian Brinkmann
-31 3 2022
+(31.3.2022)
 
 ## Libraries
 
