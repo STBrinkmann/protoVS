@@ -97,7 +97,7 @@ style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"
 
 ### Novel vs. Old Algorithm - Level of Improvement
 
-![](04_1_Experiment_Viewshed_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 At \~250 our novel algorithm has similar (but not lower), otherwise
 better performance compared to the old algortihm. Overall, mean
