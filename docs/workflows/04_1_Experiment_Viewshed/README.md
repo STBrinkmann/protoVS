@@ -58,7 +58,7 @@ observer <- aoi_grid_100[which(h_dtm > h_dsm)] %>%
 style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 
 <a href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
-<img alt="observer" src="../../../docs/observer_locations.PNG"
+<img alt="observer" src="observer_locations.PNG"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
 </a>
 
@@ -89,7 +89,7 @@ vs_time <- viewshed_comparison(observer = observer,
 style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 
 <a href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time_small.html">
-<img alt="comp_time" src="../../../docs/computation_time.svg"
+<img alt="comp_time" src="computation_time.svg"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
 </a>
 

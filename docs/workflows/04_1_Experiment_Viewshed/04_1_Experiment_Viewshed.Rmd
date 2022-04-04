@@ -113,7 +113,7 @@ observer <- aoi_grid_100[which(h_dtm > h_dsm)] %>%
 ```
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <a href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
-     <img alt="observer" src="../../../docs/observer_locations.PNG"
+     <img alt="observer" src="observer_locations.PNG"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
   </a>
 </div>
@@ -137,13 +137,13 @@ vs_time <- viewshed_comparison(observer = observer,
 ## Results
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <a href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time_small.html">
-     <img alt="comp_time" src="../../../docs/computation_time.svg"
+     <img alt="comp_time" src="computation_time.svg"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
   </a>
 </div>
 
 ```{r echo=FALSE, fig.height=10, fig.width=14, eval=FALSE}
-vs_time <- read_csv("docs/viewshed_computation_time.csv")
+vs_time <- read_csv("docs/workflows/04_1_Experiment_Viewshed/viewshed_computation_time.csv")
 
 vs_plot <- vs_time %>%
   mutate(d = if_else(distance < 300, 1, 2)) %>% 
@@ -172,7 +172,7 @@ vs_plot
 ### Novel vs. Old Algorithm - Level of Improvement
 
 ```{r echo=FALSE, dev='svg'}
-vs_time <- read_csv("docs/viewshed_computation_time.csv")
+vs_time <- read_csv("docs/workflows/04_1_Experiment_Viewshed/viewshed_computation_time.csv")
 p <- tibble(
   distance = as.numeric(),
   prop = as.numeric()
