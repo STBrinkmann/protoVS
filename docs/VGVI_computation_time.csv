@@ -1,0 +1,7 @@
+Model;Days;Hours;Minutes;Seconds;Milliseconds;Cores;Points;ms / pts
+Labib et al. (2021);11.5;276;16560;993600;993600000;65;86807875;743.9878006
+Cimburova & Blumentrath (2022);5.6;134.4;8064;483840;483840000;25;152000000;79.57894737
+;;;;;;;;
+Our algortihm;0;20.28;1216.8;73008;73008000;20;17329345;84.25938776
+Our algortihm: Labib et al. (2021);0;0;73;4380;4380000;20;17329345;5.055009292
+Our algortihm: Cimburova & Blumentrath (2022);0;0;33;1980;1980000;20;17329345;2.285141187
