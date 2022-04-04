@@ -1,0 +1,29 @@
+Package: protoVS
+Type: Package
+Title: Fast single point viewsheds using viewshed prototyping
+Version: 1.0
+Date: 2022-04-04
+Author@R:
+    person(given = "Sebastian",
+           family = "Brinkmann",
+           role = c("aut", "cre"),
+           email = "sebastian.brinkmann@fau.de",
+           comment = c(ORCID = "0000-0001-9835-7347"))
+Description:
+    Single point viewsheds are required for calculating the Viewshed Greenness Visibility Index (VGVI).
+    This R package provides functions to demonstrate a novel algorithm with reduced computation time using viewshed prototyping.
+License: MIT + file LICENSE
+Encoding: UTF-8
+URL: https://github.com/STBrinkmann/AGILE-Viewshed-Prototyping
+BugReports: https://github.com/STBrinkmann/AGILE-Viewshed-Prototyping/issues
+Imports: 
+    dplyr,
+    magrittr,
+    raster,
+    Rcpp (>= 1.0.8),
+    sf,
+    terra
+LinkingTo:
+    Rcpp,
+    RcppProgress
+RoxygenNote: 7.1.2
