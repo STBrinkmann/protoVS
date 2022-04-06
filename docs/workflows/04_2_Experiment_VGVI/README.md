@@ -1,13 +1,14 @@
-Experiment - Viewshed
+Workflow to: 4.2. Greenness visibility
 ================
-Sebastian Brinkmann
+[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)
 (31.3.2022)
 
 ## Libraries
 
 For this analysis we used our protoVS R package, which has been built
 for this paper specifically. The functions used in this analysis are the
-same as in the GVI R package, that is being used for calculating VGVI.
+same as in the GVI R package (Brinkmann and Labib 2021), that is being
+used for calculating VGVI.
 
 ``` r
 library(protoVS)
@@ -68,11 +69,12 @@ observer <- observer[valid_obs,]
 
 ## VGVI calculation
 
-As suggested by Labib et al. (2021) we assumed eye-level observer height
-of 1.7 m and used an exponential distance decay weight function with a
-viewing distance threshold of 800 m. Total runtime time using 20 CPU
-threads was 20.3 hours, computation time per observer was 84
-milliseconds.
+As suggested by Labib, Huck, and Lindley (2021) we assumed eye-level
+observer height of 1.7 m and used an exponential distance decay weight
+function with a viewing distance threshold of 800 m. Total runtime time
+using 20 CPU threads was 20.3 hours, computation time per observer was
+84 milliseconds.The result of the city-wide VGVI calculation is mapped
+in the figure below.
 
 ``` r
 vgvi_1 <- vgvi_from_sf(observer = observer,
@@ -81,15 +83,34 @@ vgvi_1 <- vgvi_from_sf(observer = observer,
                        m = 1, b = 3, mode = "exponential", cores = 20, progress = TRUE)
 ```
 
-To compare our algorithm against other results by Labib et al. (2021)
-and Cimburova & Blumentrath (2022), respectively, we also computed VGVI
-with 5 m resolution elevation models and 100 m viewing distance, and 1 m
-resolution elevation models and 100 m viewing distance.
+<div
+style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+
+<a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3r6IyNR">
+<img alt="vgvi" src="VGVI Vancouver.png"
+     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
+</a>
+
+</div>
+
+*Click the figure for an interactive version*
+
+To compare our algorithm against other results by Labib, Huck, and
+Lindley (2021) and Cimburova and Blumentrath (2022), respectively, we
+also computed VGVI with 5 m resolution elevation models and 100 m
+viewing distance, and 1 m resolution elevation models and 100 m viewing
+distance. As the number of observer locations differ, total runtime is
+not comparable. We therefore calculated computation time per point.
 
 ### Labib et al. (2021)
 
-Total runtime: 73 minutes  
-Computation time per point: 5 milliseconds
+DSM/DTM resolution: 5 m  
+Viewing distance: 800 m
+
+|                            | Labib et al. 2021 | Brinkmann et al. 2022 |
+|----------------------------|-------------------|-----------------------|
+| Total runtime              | 11.5 days         | 73 minutes            |
+| Computation time per point | 0.8 seconds       | 5 milliseconds        |
 
 ``` r
 DSM_5 <- aggregate(DSM, 5)
@@ -103,8 +124,13 @@ vgvi_2 <- vgvi_from_sf(observer = observer,
 
 ### Cimburova & Blumentrath (2022)
 
-Total runtime: 33 minutes  
-Computation time per point: 2 milliseconds
+DSM/DTM resolution: 1 m  
+Viewing distance: 100 m
+
+|                            | Cimburova & Blumentrath (2022) | Brinkmann et al. 2022 |
+|----------------------------|--------------------------------|-----------------------|
+| Total runtime              | 5.6 days                       | 33 minutes            |
+| Computation time per point | 80 milliseconds                | 2 milliseconds        |
 
 ``` r
 vgvi_3 <- vgvi_from_sf(observer = observer,
@@ -116,6 +142,32 @@ vgvi_3 <- vgvi_from_sf(observer = observer,
 ## Bibliography
 
 <div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-Brinkmann.2021" class="csl-entry">
+
+Brinkmann, Sebastian T., and S. M. Labib. 2021. “GVI: Greenness
+Visibility Index r Package.” Zenodo.
+<https://doi.org/10.5281/zenodo.5068835>.
+
+</div>
+
+<div id="ref-Cimburova.2022" class="csl-entry">
+
+Cimburova, Zofie, and Stefan Blumentrath. 2022. “Viewshed-Based
+Modelling of Visual Exposure to Urban Greenery – an Efficient GIS Tool
+for Practical Planning Applications.” *Landscape and Urban Planning*
+222: 104395. <https://doi.org/10.1016/j.landurbplan.2022.104395>.
+
+</div>
+
+<div id="ref-Labib.2021" class="csl-entry">
+
+Labib, S. M., Jonny J. Huck, and Sarah Lindley. 2021. “Modelling and
+Mapping Eye-Level Greenness Visibility Exposure Using Multi-Source Data
+at High Spatial Resolutions.” *The Science of the Total Environment* 755
+(Pt 1): 143050. <https://doi.org/10.1016/j.scitotenv.2020.143050>.
+
+</div>
 
 <div id="ref-MetroVancouver.31.11.2019" class="csl-entry">
 

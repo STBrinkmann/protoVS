@@ -1,6 +1,6 @@
 Experiment - Viewshed
 ================
-Sebastian Brinkmann
+[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)
 (31.3.2022)
 
 ## Libraries
@@ -57,12 +57,14 @@ observer <- aoi_grid_100[which(h_dtm > h_dsm)] %>%
 <div
 style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 
-<a href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
+<a target="_blank" rel="noopener noreferrer" href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
 <img alt="observer" src="observer_locations.PNG"
-     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" />
 </a>
 
 </div>
+
+*Click the figure for an interactive version*
 
 ## Viewshed calculation
 
@@ -88,23 +90,25 @@ vs_time <- viewshed_comparison(observer = observer,
 <div
 style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 
-<a href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time_small.html">
-<img alt="comp_time" src="computation_time.svg"
-     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
+<a target="_blank" rel="noopener noreferrer" href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time.html">
+<img alt="comp_time" src="computation_time_all.svg"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" />
 </a>
 
 </div>
 
-### Novel vs. Old Algorithm - Level of Improvement
+*Click the figure for an interactive version*
+
+### RFVS vs. RFVS + prototyping algorithms - Level of Improvement
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.svg)<!-- -->
 
 At \~250 our novel algorithm has similar (but not lower), otherwise
-better performance compared to the old algortihm. Overall, mean
-single-core computation time per viewshed was improved by 34.2% (±20.9%)
-using our novel algorithm. Smaller improvements of 19.8% (±18.4%) were
-measured for small viewsheds (r &lt; 300 m), using a larger radius (r
-&gt;= 300 m) led to an improvement of 39.9% (±19.4%).
+better performance compared to the benchmark RFVS algortihm. Overall,
+mean single-core computation time per viewshed was improved by 34.2%
+(±20.9%) using our novel algorithm. Smaller improvements of 19.8%
+(±18.4%) were measured for small viewsheds (r &lt; 300 m), using a large
+radius (r &gt;= 300 m) led to an improvement of 39.9% (±19.4%).
 
 ## Bibliography
 

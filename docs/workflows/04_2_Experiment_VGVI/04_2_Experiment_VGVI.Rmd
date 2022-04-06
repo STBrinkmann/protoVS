@@ -1,6 +1,6 @@
 ---
-title: "Experiment - Viewshed"
-author: "Sebastian Brinkmann"
+title: "Workflow to: 4.2. Greenness visibility"
+author: "[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)"
 date: "(31.3.2022)"
 knit: (
   function(inputFile, encoding) {
@@ -17,7 +17,7 @@ knitr::opts_knit$set(root.dir = "../../../")
 
 ## Libraries
 
-For this analysis we used our protoVS R package, which has been built for this paper specifically. The functions used in this analysis are the same as in the GVI R package, that is being used for calculating VGVI.
+For this analysis we used our protoVS R package, which has been built for this paper specifically. The functions used in this analysis are the same as in the GVI R package [@Brinkmann.2021], that is being used for calculating VGVI.
 
 ```{r}
 library(protoVS)
@@ -71,7 +71,7 @@ observer <- observer[valid_obs,]
 
 ## VGVI calculation
 
-As suggested by Labib et al. (2021) we assumed eye-level observer height of 1.7 m and used an exponential distance decay weight function with a viewing distance threshold of 800 m. Total runtime time using 20 CPU threads was 20.3 hours, computation time per observer was 84 milliseconds.
+As suggested by @Labib.2021 we assumed eye-level observer height of 1.7 m and used an exponential distance decay weight function with a viewing distance threshold of 800 m. Total runtime time using 20 CPU threads was 20.3 hours, computation time per observer was 84 milliseconds.The result of the city-wide VGVI calculation is mapped in the figure below.
 
 ```{r eval=FALSE}
 vgvi_1 <- vgvi_from_sf(observer = observer,
@@ -80,12 +80,54 @@ vgvi_1 <- vgvi_from_sf(observer = observer,
                        m = 1, b = 3, mode = "exponential", cores = 20, progress = TRUE)
 ```
 
-To compare our algorithm against other results by Labib et al. (2021) and Cimburova & Blumentrath (2022), respectively, we also computed VGVI with 5 m resolution elevation models and 100 m viewing distance, and 1 m resolution elevation models and 100 m viewing distance.
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3r6IyNR">
+     <img alt="vgvi" src="VGVI Vancouver.png"
+     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
+  </a>
+</div>
+*Click the figure for an interactive version*
+
+```{r eval=FALSE, echo=FALSE}
+# Convert points to raster using a IDW algorithm
+library(GVI)
+vgvi_rast <- sf_to_rast(observer = vgvi_1, v = "VGVI", aoi = aoi,
+                        max_distance = 400, n = 10, raster_res = 5,
+                        cores = 22, progress = TRUE)
+
+# Smoothing
+vgvi_rast_5 <- focal(vgvi_rast, 5, fun = "median", na.rm = TRUE)
+
+# Using Jenks algorithm to reclassified raster with 9 classes
+set.seed(1234)
+this_jenks <- classInt::classIntervals(var = vgvi_rast_5 %>% 
+                                         terra::values(mat = FALSE) %>% 
+                                         na.omit() %>%
+                                         sample(100000),
+                                       n = 9, style = "fisher", warnLargeN = FALSE)
+this_jenks$brks[c(1, 10)] <- c(vgvi_rast_5@ptr$range_min, vgvi_rast_5@ptr$range_max)
+
+rcl_mat <- matrix(c(this_jenks$brks[1:9],
+                    this_jenks$brks[2:10],
+                    1:9),
+                  ncol = 3, byrow = F)
+vgvi_rast_5_jenks <- classify(vgvi_rast_5, rcl_mat, include.lowest=TRUE)
+
+range01 <- function(x){(x-min(x, na.rm = T))/(max(x, na.rm = T)-min(x, na.rm = T))}
+vgvi_rast_5_jenks[] <- range01(vgvi_rast_5_jenks[])
+```
+
+To compare our algorithm against other results by @Labib.2021 and @Cimburova.2022, respectively, we also computed VGVI with 5 m resolution elevation models and 100 m viewing distance, and 1 m resolution elevation models and 100 m viewing distance. As the number of observer locations differ, total runtime is not comparable. We therefore calculated computation time per point.
 
 ### Labib et al. (2021)
 
-Total runtime: 73 minutes\
-Computation time per point: 5 milliseconds
+DSM/DTM resolution: 5 m\
+Viewing distance: 800 m
+
+|                            | Labib et al. 2021 | Brinkmann et al. 2022 |
+|----------------------------|-------------------|-----------------------|
+| Total runtime              | 11.5 days         | 73 minutes            |
+| Computation time per point | 0.8 seconds       | 5 milliseconds        |
 
 ```{r eval=FALSE}
 DSM_5 <- aggregate(DSM, 5)
@@ -99,8 +141,13 @@ vgvi_2 <- vgvi_from_sf(observer = observer,
 
 ### Cimburova & Blumentrath (2022)
 
-Total runtime: 33 minutes\
-Computation time per point: 2 milliseconds
+DSM/DTM resolution: 1 m\
+Viewing distance: 100 m
+
+|                            | Cimburova & Blumentrath (2022) | Brinkmann et al. 2022 |
+|----------------------------|--------------------------------|-----------------------|
+| Total runtime              | 5.6 days                       | 33 minutes            |
+| Computation time per point | 80 milliseconds                | 2 milliseconds        |
 
 ```{r eval=FALSE}
 vgvi_3 <- vgvi_from_sf(observer = observer,

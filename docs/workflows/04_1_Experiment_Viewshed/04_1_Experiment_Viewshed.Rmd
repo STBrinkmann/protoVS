@@ -1,6 +1,6 @@
 ---
 title: "Experiment - Viewshed"
-author: "Sebastian Brinkmann"
+author: "[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)"
 date: "(31.3.2022)"
 knit: (
   function(inputFile, encoding) {
@@ -112,11 +112,12 @@ observer <- aoi_grid_100[which(h_dtm > h_dsm)] %>%
   dplyr::rename(geom = x)
 ```
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <a href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
-     <img alt="observer" src="observer_locations.PNG"
-     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
+  <a target="_blank" rel="noopener noreferrer" href="https://h2961284.stratoserver.net/AGILE/viewshed_observer_locations.html">
+    <img alt="observer" src="observer_locations.PNG"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" />
   </a>
 </div>
+*Click the figure for an interactive version*
 
 ## Viewshed calculation
 Viewsheds for all points have been calculated at multiple distance levels from 1 to 1000 m. We measured total runtime for each distance level and scaled it to computation time per viewshed. The times represent the average of 20 runs and are given in milliseconds.
@@ -135,17 +136,15 @@ vs_time <- viewshed_comparison(observer = observer,
 ```
 
 ## Results
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <a href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time_small.html">
-     <img alt="comp_time" src="computation_time.svg"
-     style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
-  </a>
-</div>
+```{r eval=TRUE, echo=FALSE, fig.height=4, fig.width=7.2, dev='svg'}
+vs_time <- read_csv("docs/workflows/04_1_Experiment_Viewshed/viewshed_computation_time.csv") %>%
+  mutate(method = case_when(
+        method == "Old" ~ "RFVS",
+        method == "New" ~ "RFVS + prototyping",
+        method == "New (10 cores)" ~ "RFVS + prototyping (10 cores)"
+  ))
 
-```{r echo=FALSE, fig.height=10, fig.width=14, eval=FALSE}
-vs_time <- read_csv("docs/workflows/04_1_Experiment_Viewshed/viewshed_computation_time.csv")
-
-vs_plot <- vs_time %>%
+vs_plot_all <- vs_time %>%
   mutate(d = if_else(distance < 300, 1, 2)) %>% 
   mutate(method = as_factor(method)) %>% 
   ggplot(aes(x = distance, y = time_mean, colour = method)) + 
@@ -157,19 +156,48 @@ vs_plot <- vs_time %>%
   scale_colour_Publication() +
   theme_Publication() +
   guides(color = guide_legend(override.aes = list(size = 2))) +
-  facet_wrap(~d, scales = "free") + 
   theme(
     strip.background = element_blank(),
     strip.text.x = element_blank()
   )
-vs_plot
-#ggsave(filename = "docs/computation_time.png", plot = vs_plot, device = "png",
-#       height = 4, width = 7.5, units = "in", dpi = 300)
-#ggsave(filename = "docs/computation_time.svg", plot = vs_plot, device = "svg",
-#       height = 4, width = 7.5, units = "in", dpi = 300)
-```
 
-### Novel vs. Old Algorithm - Level of Improvement
+vs_plot <- vs_time %>%
+  filter(method != "RFVS + prototyping (10 cores)") %>% 
+  mutate(method = as_factor(method)) %>% 
+  ggplot(aes(x = distance, y = time_mean, colour = method)) + 
+  #geom_line(size = 1.2) +
+  geom_smooth(size = 0.8, se = F) +
+  scale_y_continuous(breaks = scales::pretty_breaks()) +
+  scale_x_continuous(breaks = scales::pretty_breaks()) +
+  labs(x = "Distance [m]", y = "Computation Time [ms]", colour = "Method") +
+  scale_colour_Publication() +
+  theme_Publication() +
+  guides(color = guide_legend(override.aes = list(size = 2))) +
+  theme(
+    strip.background = element_blank(),
+    strip.text.x = element_blank()
+  )
+
+
+ggsave(filename = "docs/workflows/04_1_Experiment_Viewshed/computation_time.png",
+       plot = vs_plot, device = "png",
+       height = 103, width = 183, units = "mm", dpi = 300)
+ggsave(filename = "docs/workflows/04_1_Experiment_Viewshed/computation_time.svg",
+       plot = vs_plot, device = "svg",
+       height = 103, width = 183, units = "mm", dpi = 300)
+ggsave(filename = "docs/workflows/04_1_Experiment_Viewshed/computation_time_all.svg",
+       plot = vs_plot_all, device = "svg",
+       height = 103, width = 183, units = "mm", dpi = 300)
+```
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <a target="_blank" rel="noopener noreferrer" href="https://h2961284.stratoserver.net/AGILE/viewshed_computation_time.html">
+    <img alt="comp_time" src="computation_time_all.svg"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" />
+  </a>
+</div>
+*Click the figure for an interactive version*
+
+### RFVS vs. RFVS + prototyping algorithms - Level of Improvement
 
 ```{r echo=FALSE, dev='svg'}
 vs_time <- read_csv("docs/workflows/04_1_Experiment_Viewshed/viewshed_computation_time.csv")
@@ -211,6 +239,6 @@ p %>%
   labs(x = "Distance [m]", y = "Improvement")
 ```
 
-At \~250 our novel algorithm has similar (but not lower), otherwise better performance compared to the old algortihm. Overall, mean single-core computation time per viewshed was improved by `r p_mean_overall`% (±`r p_sd_overall`%) using our novel algorithm. Smaller improvements of `r p_mean_low`% (±`r p_sd_low`%) were measured for small viewsheds (r \< 300 m), using a larger radius (r \>= 300 m) led to an improvement of `r p_mean_high`% (±`r p_sd_high`%).
+At \~250 our novel algorithm has similar (but not lower), otherwise better performance compared to the benchmark RFVS algortihm. Overall, mean single-core computation time per viewshed was improved by `r p_mean_overall`% (±`r p_sd_overall`%) using our novel algorithm. Smaller improvements of `r p_mean_low`% (±`r p_sd_low`%) were measured for small viewsheds (r \< 300 m), using a large radius (r \>= 300 m) led to an improvement of `r p_mean_high`% (±`r p_sd_high`%).
 
 ## Bibliography
