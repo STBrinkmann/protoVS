@@ -87,7 +87,7 @@ vgvi_1 <- vgvi_from_sf(observer = observer,
 style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 
 <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3r6IyNR">
-<img alt="vgvi" src="VGVI Vancouver.png"
+<img alt="vgvi" src="VGVI Vancouver_600dpi.png"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
 </a>
 

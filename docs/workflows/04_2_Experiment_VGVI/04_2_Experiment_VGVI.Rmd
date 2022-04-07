@@ -82,15 +82,17 @@ vgvi_1 <- vgvi_from_sf(observer = observer,
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <a target="_blank" rel="noopener noreferrer" href="https://bit.ly/3r6IyNR">
-     <img alt="vgvi" src="VGVI Vancouver.png"
+     <img alt="vgvi" src="VGVI Vancouver_600dpi.png"
      style="position: absolute; top: 0; left: 0; width: 90%; height: 90%;">
   </a>
 </div>
 *Click the figure for an interactive version*
 
 ```{r eval=FALSE, echo=FALSE}
-# Convert points to raster using a IDW algorithm
 library(GVI)
+# Convert points to raster using a parallel IDW algorithm
+# We used IDW interpolation for visualisation purposes only
+# Computation time for all 17 million points took ~6 days!
 vgvi_rast <- sf_to_rast(observer = vgvi_1, v = "VGVI", aoi = aoi,
                         max_distance = 400, n = 10, raster_res = 5,
                         cores = 22, progress = TRUE)
