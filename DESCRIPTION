@@ -14,8 +14,8 @@ Description:
     This R package provides functions to demonstrate a novel algorithm with reduced computation time using viewshed prototyping.
 License: MIT + file LICENSE
 Encoding: UTF-8
-URL: https://github.com/STBrinkmann/AGILE-Viewshed-Prototyping
-BugReports: https://github.com/STBrinkmann/AGILE-Viewshed-Prototyping/issues
+URL: https://github.com/STBrinkmann/protoVS
+BugReports: https://github.com/STBrinkmann/protoVS/issues
 Imports: 
     dplyr,
     magrittr,
