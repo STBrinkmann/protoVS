@@ -34,7 +34,7 @@ also been uploaded on Zenodo for easy access.
 
 #### 2. Evaluation
 
-Reproducible workflows have been provdided for the sections
+Reproducible workflows have been provided for the sections
 <a href="docs/workflows/04_1_Experiment_Viewshed/">4.1 Viewshed</a> and
 <a href="docs/workflows/04_2_Experiment_VGVI/">4.2 Greenness
 visibility</a>.
