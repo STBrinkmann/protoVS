@@ -14,7 +14,8 @@ This is the github repository for our publication “Modelling eye-level
 visibility of urban green space: Optimising city-wide point-based
 viewshed computations through prototyping”. Here we provide reproducible
 workflows for our analyses. Data supporting this publication is
-accessible via the following DOI ().
+accessible via the following DOI
+([10.5281/zenodo.6421423](https://doi.org/10.5281/zenodo.6421423)).
 
 ## Installation
 
