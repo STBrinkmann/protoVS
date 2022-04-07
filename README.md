@@ -5,7 +5,9 @@
 
 <!-- badges: start -->
 <!-- [![DOI]()]() -->
-<!-- ![Sample Data]() -->
+
+[![Sample
+Data](https://badgen.net/badge/Sample%20Data/10.5281%252Fzenodo.6421423/blue?)](https://doi.org/10.5281/zenodo.6421423)
 <!-- badges: end -->
 
 This is the github repository for our publication “Modelling eye-level
