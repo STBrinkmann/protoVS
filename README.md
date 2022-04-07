@@ -31,15 +31,16 @@ devtools::install_github("STBrinkmann/protoVS")
 #### 1. Data
 
 The elevation data required downloading and pre-processing. In the
-<a href="docs/workflows/00_Data/">data workflow</a> we have provided R
-scripts that describe the complete process. Processed input data has
-also been uploaded on Zenodo for easy access.
+<a href="docs/workflows/00_Data/README.md">data workflow</a> we have
+provided R scripts that describe the complete process. Processed input
+data has also been uploaded on Zenodo for easy access.
 
 #### 2. Evaluation
 
 Reproducible workflows have been provided for the sections
-<a href="docs/workflows/04_1_Experiment_Viewshed/">4.1 Viewshed</a> and
-<a href="docs/workflows/04_2_Experiment_VGVI/">4.2 Greenness
+<a href="docs/workflows/04_1_Experiment_Viewshed/README.md">4.1
+Viewshed</a> and
+<a href="docs/workflows/04_2_Experiment_VGVI/README.md">4.2 Greenness
 visibility</a>.
 
 ## Citation
