@@ -139,6 +139,54 @@ vgvi_3 <- vgvi_from_sf(observer = observer,
                        m = 1, b = 3, mode = "exponential", cores = 20, progress = TRUE)
 ```
 
+## VGVI post-processing
+
+``` r
+library(GVI)
+# Convert points to raster using a parallel IDW algorithm
+# We used IDW interpolation for visualisation purposes only
+vgvi_rast <- sf_to_rast(observer = vgvi_1, v = "VGVI", aoi = aoi,
+                        max_distance = 400, n = 10, raster_res = 5,
+                        cores = 22, progress = TRUE)
+
+# Smoothing
+vgvi_rast_5 <- focal(vgvi_rast, 3, fun = "median", na.rm = TRUE)
+
+# Water mask from LULC
+water <- as.polygons(LULC == 12) %>% 
+  st_as_sf() %>% 
+  filter(LULC_2014 == 1) %>% 
+  mutate(a = st_area(.) %>% as.numeric()) %>% 
+  filter(a > 1000) %>% 
+  vect()
+
+# Remove water and mask by AOI
+aoi <- vect("data/Vancouver.gpkg")
+
+vgvi_rast_5 <- vgvi_rast_5 %>% 
+  crop(aoi) %>% 
+  mask(water, inverse = TRUE) %>% 
+  mask(aoi)
+
+# Using Jenks algorithm to reclassified raster with 9 classes
+set.seed(1234)
+this_jenks <- classInt::classIntervals(var = vgvi_rast_5 %>% 
+                                         terra::values(mat = FALSE) %>% 
+                                         na.omit() %>%
+                                         sample(100000),
+                                       n = 9, style = "fisher", warnLargeN = FALSE)
+this_jenks$brks[c(1, 10)] <- c(vgvi_rast_5@ptr$range_min, vgvi_rast_5@ptr$range_max)
+
+rcl_mat <- matrix(c(this_jenks$brks[1:9],
+                    this_jenks$brks[2:10],
+                    1:9),
+                  ncol = 3, byrow = F)
+vgvi_rast_5_jenks <- classify(vgvi_rast_5, rcl_mat, include.lowest=TRUE)
+
+range01 <- function(x){(x-min(x, na.rm = T))/(max(x, na.rm = T)-min(x, na.rm = T))}
+vgvi_rast_5_jenks[] <- range01(vgvi_rast_5_jenks[])
+```
+
 ## Bibliography
 
 <div id="refs" class="references csl-bib-body hanging-indent">

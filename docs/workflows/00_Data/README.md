@@ -1,6 +1,6 @@
 Data Download
 ================
-Sebastian Brinkmann
+[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)
 (31.3.2022)
 
 ## Elevation data

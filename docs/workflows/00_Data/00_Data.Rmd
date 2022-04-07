@@ -1,6 +1,6 @@
 ---
 title: "Data Download"
-author: "Sebastian Brinkmann"
+author: "[Sebastian T. Brinkmann](https://orcid.org/0000-0001-9835-7347)"
 date: "(31.3.2022)"
 knit: (
   function(inputFile, encoding) {
