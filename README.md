@@ -4,8 +4,8 @@
 # Modelling eye-level visibility of urban green space: Optimising city-wide point-based viewshed computations through prototyping
 
 <!-- badges: start -->
-<!-- [![DOI]()]() -->
 
+[![DOI:10.5194/agile-giss-3-27-2022](https://zenodo.org/badge/DOI/10.5194/agile-giss-3-27-2022.svg)](https://doi.org/10.5194/agile-giss-3-27-2022)
 [![Sample
 Data](https://badgen.net/badge/Sample%20Data/10.5281%252Fzenodo.6421423/blue?)](https://doi.org/10.5281/zenodo.6421423)
 <!-- badges: end -->
@@ -44,3 +44,26 @@ Viewshed</a> and
 visibility</a>.
 
 ## Citation
+
+``` r
+citation("protoVS")
+#> 
+#> To cite protoVS in publications use:
+#> 
+#>   Brinkmann, S. T., Kremer, D., and Walker, B. B.: Modelling eye-level
+#>   visibility of urban green space: Optimising city-wide point-based
+#>   viewshed computations through prototyping, AGILE GIScience Ser., 3,
+#>   27, https://doi.org/10.5194/agile-giss-3-27-2022, 2022.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Modelling eye-level visibility of urban green space: Optimising city-wide point-based viewshed computations through prototyping},
+#>     author = {Sebastian T. Brinkmann and Dominik Kremer and Blake Byron Walker},
+#>     journal = {AGILE: GIScience Series},
+#>     year = {2022},
+#>     volume = {3},
+#>     number = {27},
+#>     url = {https://doi.org/10.5194/agile-giss-3-27-2022},
+#>   }
+```
