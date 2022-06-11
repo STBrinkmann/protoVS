@@ -1,0 +1,13 @@
+citHeader("To cite protoVS in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Modelling eye-level visibility of urban green space: Optimising city-wide point-based viewshed computations through prototyping",
+  author   = "Sebastian T. Brinkmann, Dominik Kremer, Blake Byron Walker",
+  journal  = "AGILE: GIScience Series",
+  year     = "2022",
+  volume   = "3",
+  number   = "27",
+  url      = "https://doi.org/10.5194/agile-giss-3-27-2022",
+  textVersion = paste("Brinkmann, S. T., Kremer, D., and Walker, B. B.: Modelling eye-level visibility of urban green space: Optimising city-wide point-based viewshed computations through prototyping, AGILE GIScience Ser., 3, 27, https://doi.org/10.5194/agile-giss-3-27-2022, 2022.")
+)
