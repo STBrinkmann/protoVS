@@ -207,7 +207,7 @@ double viewshed_test_new(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_values,
             const int col = cell - (row * ras.ncol);
             const int dcol = abs(col-x0_o[k]);
             
-            if(!(cell<0 || cell > ras.ncell || h_cell != h_cell || dcol>r)){
+            if(!(cell<0 || cell > ras.ncell || Rcpp::NumericVector::is_na(h_cell) || dcol>r)){
               // Compute tangent of x0/y0 (observer location) and this LoS path cell
               const double distance_traveled = sqrt((x0_o[k] - col)*(x0_o[k] - col) + (y0_o[k] - row)*(y0_o[k] - row));
               const double this_tan = (h_cell - h0[k]) / (distance_traveled);
@@ -262,7 +262,7 @@ std::vector<double> LoS_tangent(const std::vector<int> &shared_LoS,
     const int col = cell - (row * nc_ras);
     const int dcol = abs(col-x0);
     
-    if(!(cell<0 || cell > ncell_ras || h_cell != h_cell || dcol>r)){
+    if(!(cell<0 || cell > ncell_ras || Rcpp::NumericVector::is_na(h_cell) || dcol>r)){
       // Compute tangent of x0/y0 (observer location) and this LoS path cell
       const double distance_traveled = sqrt((x0 - col)*(x0 - col) + (y0 - row)*(y0 - row));
       const double this_tan = (h_cell - h0) / (distance_traveled);
@@ -356,7 +356,7 @@ std::vector<int> viewshed_cpp(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_valu
               const int col = cell - (row * ras.ncol);
               const int dcol = abs(col-x0_o[k]);
               
-              if(!(cell<0 || cell > ras.ncell || h_cell != h_cell || dcol>r)){
+              if(!(cell<0 || cell > ras.ncell || Rcpp::NumericVector::is_na(h_cell) || dcol>r)){
                 // Compute tangent of x0/y0 (observer location) and this LoS path cell
                 const double distance_traveled = sqrt((x0_o[k] - col)*(x0_o[k] - col) + (y0_o[k] - row)*(y0_o[k] - row));
                 const double this_tan = (h_cell - h0[k]) / (distance_traveled);
@@ -470,7 +470,7 @@ std::vector<double> viewshed_cpp2(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_
               const int col = cell - (row * ras.ncol);
               const int dcol = abs(col-x0_o[k]);
               
-              if(!(cell<0 || cell > ras.ncell || h_cell != h_cell || dcol>r)){
+              if(!(cell<0 || cell > ras.ncell || Rcpp::NumericVector::is_na(h_cell) || dcol>r)){
                 // Compute tangent of x0/y0 (observer location) and this LoS path cell
                 const double distance_traveled = sqrt((x0_o[k] - col)*(x0_o[k] - col) + (y0_o[k] - row)*(y0_o[k] - row));
                 const double this_tan = (h_cell - h0[k]) / (distance_traveled);

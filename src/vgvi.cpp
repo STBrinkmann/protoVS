@@ -14,6 +14,7 @@ using namespace Rcpp;
 // [[Rcpp::plugins(openmp)]]
 // [[Rcpp::depends(RcppProgress)]]
 #include <progress.hpp>
+#include "eta_progress_bar.hpp"
 
 // [[Rcpp::export]]
 std::vector<double> VGVI_cpp(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_values,
@@ -47,25 +48,23 @@ std::vector<double> VGVI_cpp(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_value
   const Rcpp::IntegerVector los_start = shared_LoS(r, los_ref_vec);
   
   // Progress bar
-  Progress pb(input_cells.size(), display_progress);
+  ETAProgressBar pb_ETA;
+  Progress pb(input_cells.size(), display_progress, pb_ETA);
   
   // Main loop
 #if defined(_OPENMP)
   omp_set_num_threads(ncores);
-#pragma omp parallel for shared(output)
+#pragma omp parallel for schedule(dynamic) shared(output)
 #endif
   for(int k = 0; k < input_cells.size(); ++k){
-    
-    const int this_input_cell = input_cells[k];
-    
-    // Viewshed
-    std::vector<int> viewshed(nc_ref*nr_ref, NA_INTEGER);
-    
-    // Viewshed at x0/y0 is always visible
-    viewshed[c0_ref] = input_cells[k]+1;
-    
-    if (!pb.is_aborted()) {
-      Progress::check_abort();
+    if ( pb.increment() ) {
+      const int this_input_cell = input_cells[k];
+      
+      // Viewshed
+      std::vector<int> viewshed(nc_ref*nr_ref, NA_INTEGER);
+      
+      // Viewshed at x0/y0 is always visible
+      viewshed[c0_ref] = input_cells[k]+1;
       
       // A: Viewshed Analysis
       // Eye-level height at x0/y0 > DSM height?
@@ -102,7 +101,7 @@ std::vector<double> VGVI_cpp(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_value
               const int col = cell - (row * dsm_ras.ncol);
               const int dcol = abs(col-x0_o[k]);
               
-              if(!(cell<0 || cell > dsm_ras.ncell || h_cell != h_cell || dcol>r)){
+              if(!(cell<0 || cell > dsm_ras.ncell || Rcpp::NumericVector::is_na(h_cell) || dcol>r)){
                 // Compute tangent of x0/y0 (observer location) and this LoS path cell
                 const double distance_traveled = sqrt(
                   (x0_o[k] - col)*(x0_o[k] - col) + (y0_o[k] - row)*(y0_o[k] - row)
@@ -220,7 +219,6 @@ std::vector<double> VGVI_cpp(Rcpp::S4 &dsm, const Rcpp::NumericVector &dsm_value
       
       output[k] = vgvi_sum;
     }
-    pb.increment();
   }
   
   return output;
