@@ -26,4 +26,4 @@ Imports:
 LinkingTo:
     Rcpp,
     RcppProgress
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
