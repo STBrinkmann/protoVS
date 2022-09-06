@@ -134,12 +134,12 @@ vgvi_from_sf <- function(observer, dsm_rast, dtm_rast, greenspace_rast,
   }
   
   # mode
-  if (is.character(mode) && (mode == c("logit", "exponential"))){
-    mode = 2
+  if (is.character(mode) && (mode == "logit")){
+    mode = 1
   } else if (is.character(mode) && (mode == "exponential")){
     mode = 2
-  } else if (is.character(mode) && (mode == "logit")){
-    mode = 1
+  } else if (is.character(mode) && (mode == c("logit", "exponential"))){
+    mode = 2
   } else {
     stop("mode must be logit or exponential")
   }
